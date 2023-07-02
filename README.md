@@ -28,7 +28,7 @@
 
 ### Задание 3
 
-`rsyncd.conf`
+`rsyncd.conf - практически без изменений, за исключение пути папки которая бекапится и дополнения опцией chroot`
 
 ```
 pid file = /var/run/rsyncd.pid
@@ -38,7 +38,7 @@ munge symlinks = yes
 use chroot = false
 # папка источник для бэкапа
 [data]
-path = /etc/
+path = /etc
 uid = root
 read only = yes
 list = yes
@@ -53,3 +53,4 @@ secrets file = /etc/rsyncd.scrt
 `backup-node1.sh :`
 
 [backup-node1.sh](https://github.com/Adrenokrome72/alifanov-hw-10-4/blob/main/backup-node1.sh)
+![Screen](https://github.com/Adrenokrome72/alifanov-hw-10-4/blob/main/1111.png)
