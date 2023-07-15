@@ -20,7 +20,7 @@
 
 *Приведите скриншот systemctl status memcached, где будет видно, что memcached запущен.*
 
-[!img1](https://github.com/Adrenokrome72/alifanov-hw-11-02/blob/main/1.jpg)
+![img1](https://github.com/Adrenokrome72/alifanov-hw-11-02/blob/main/1.jpg)
 
 ---
 
@@ -30,7 +30,7 @@
 
 *Приведите скриншот, на котором видно, что спустя 5 секунд ключи удалились из базы.*
 
-[!img2](https://github.com/Adrenokrome72/alifanov-hw-11-02/blob/main/2.jpg) 
+![img2](https://github.com/Adrenokrome72/alifanov-hw-11-02/blob/main/2.jpg) 
 
 ---
 
@@ -40,4 +40,4 @@
 
 *Через redis-cli достаньте все записанные ключи и значения из базы, приведите скриншот этой операции.*
 
-[!img3](https://github.com/Adrenokrome72/alifanov-hw-11-02/blob/main/3.jpg)
+![img3](https://github.com/Adrenokrome72/alifanov-hw-11-02/blob/main/3.jpg)
