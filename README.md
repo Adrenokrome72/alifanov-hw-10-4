@@ -1,52 +1,59 @@
-# Домашнее задание к занятию "`12.3 SQL. Часть 1`" - `Алифанов Сергей`
+# Домашнее задание к занятию "`12.4 SQL. Часть 2`" - `Алифанов Сергей`
 
----
 ### Задание 1
 
-Получите уникальные названия районов из таблицы с адресами, которые начинаются на “K” и заканчиваются на “a” и не содержат пробелов.
+Одним запросом получите информацию о магазине, в котором обслуживается более 300 покупателей, и выведите в результат следующую информацию: 
+- фамилия и имя сотрудника из этого магазина;
+- город нахождения магазина;
+- количество пользователей, закреплённых в этом магазине.
 
 ```
-SELECT DISTINCT district
-FROM address
-WHERE district LIKE 'K%a' AND district NOT LIKE 'K% %a'
-```
-![Название скриншота 1](https://github.com/Adrenokrome72/alifanov-hw-12-03/blob/main/1.jpg)
+SELECT CONCAT(s.first_name, ' ' , s.last_name) AS Employee, c.city AS City, COUNT(c2.store_id) AS Customers
+FROM staff s
+JOIN store s2 ON s.store_id = s2.store_id
+JOIN address a ON s2.address_id = a.address_id
+JOIN city c ON a.city_id = c.city_id
+JOIN customer c2 ON s2.store_id = c2.store_id
+GROUP BY s.staff_id
+HAVING  COUNT(c2.store_id) > 300
 
+```
+
+![Название скриншота 1](https://github.com/Adrenokrome72/alifanov-hw-12-04/blob/main/1.jpg)
 
 ### Задание 2
 
-Получите из таблицы платежей за прокат фильмов информацию по платежам, которые выполнялись в промежуток с 15 июня 2005 года по 18 июня 2005 года **включительно** и стоимость которых превышает 10.00.
+Получите количество фильмов, продолжительность которых больше средней продолжительности всех фильмов.
 
-`SELECT amount, payment_date FROM payment WHERE amount > 10 AND payment_date BETWEEN '2005-06-15 00:00:00' AND '2005-06-18 23:59:59'`
+```
 
-![Название скриншота 2](https://github.com/Adrenokrome72/alifanov-hw-12-03/blob/main/2.jpg)
+SELECT AVG(`length`) FROM film f2
 
+
+SELECT COUNT(film_id) AS 'Хронометраж больше 115 мин.'  
+FROM film f
+WHERE `length` > (SELECT AVG(`length`) FROM film f2)
+
+```
+
+![Название скриншота 2](https://github.com/Adrenokrome72/alifanov-hw-12-04/blob/main/2.jpg)
+
+![Название скриншота 3](https://github.com/Adrenokrome72/alifanov-hw-12-04/blob/main/3.jpg)
 
 ### Задание 3
 
-Получите последние пять аренд фильмов.
+Получите информацию, за какой месяц была получена наибольшая сумма платежей, и добавьте информацию по количеству аренд за этот месяц.
 
 ```
-SELECT rental_id, rental_date, inventory_id, customer_id, staff_id 
-FROM rental
-ORDER BY rental_id DESC LIMIT 5
-```
-![Название скриншота 3](https://github.com/Adrenokrome72/alifanov-hw-12-03/blob/main/3.jpg)
 
-
-### Задание 4
-
-Одним запросом получите активных покупателей, имена которых Kelly или Willie. 
-
-Сформируйте вывод в результат таким образом:
-- все буквы в фамилии и имени из верхнего регистра переведите в нижний регистр,
-- замените буквы 'll' в именах на 'pp'.
+SELECT DATE_FORMAT(p.payment_date, '%m.%Y') AS 'Самый доходный месяц', count(r.rental_id) 'Количество аренд'  
+FROM payment p INNER JOIN 
+     rental r ON p.rental_id = r.rental_id 
+GROUP BY DATE_FORMAT(p.payment_date, '%m.%Y') 
+ORDER BY  sum(p.amount) DESC
+LIMIT 1
 
 ```
-SELECT LOWER(CONCAT(REPLACE(first_name, 'LL', 'PP'), ' ', last_name)), active
-FROM customer
-WHERE first_name LIKE 'willie'
-OR first_name LIKE 'kelly'
-```
 
-![Название скриншота 4](https://github.com/Adrenokrome72/alifanov-hw-12-03/blob/main/4.jpg)
+![Название скриншота 4](https://github.com/Adrenokrome72/alifanov-hw-12-04/blob/main/4.jpg)
+
