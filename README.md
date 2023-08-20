@@ -67,37 +67,37 @@ where date(p.payment_date) = '2005-07-30' and
 
 - перечислите узкие места;
 
-Проведя анализ, можно понять, что в данном запросе, явно лишние действия выполняются при обращении к таблицам `rental` и `inventory`, которые в результате никак не используются, следовательно,  от них можно избавиться. Следовательно, после оператора `where`, избавляемся от лишних условий, а также видим ошибку в условии `r.customer_id = c.customer_id` и исправляем её на `p.customer_id = c.customer_id`, чтобы было корректное обращение к таблице, которая используется. 
-
+Проведя анализ - избавляемся от лишних запросов к неиспользуемым таблицам `film` и `inventory`, корректируем выборку из таблиц оператором `inner join` для конкретизации запроса. Дополнительно конкретизируем запрос к дате платежа. Также дополнительно используем группировку для улучшения качества запроса.
 
 - оптимизируйте запрос: внесите корректировки по использованию операторов, при необходимости добавьте индексы.
 
 Оптимизировав запрос, получаем следующее:
 
 ```
-select distinct concat(c.last_name, ' ', c.first_name),
-       sum(p.amount) over (partition by c.customer_id)
-from payment p, customer c
-where date(p.payment_date) = '2005-07-30' and p.customer_id = c.customer_id
-
+select concat(c.last_name, ' ', c.first_name), sum(p.amount)
+from customer c
+inner join rental r on r.customer_id = c.customer_id
+inner join payment p on p.payment_date >= '2005-07-30' and p.payment_date < date_add('2005-07-30', interval 1 day) and p.payment_date = r.rental_date and r.customer_id = c.customer_id
+group by c.last_name, c.first_name
 ```
 
 Проведя снова `explain analyze` видим следующее:
 
 ```
--> Limit: 200 row(s)  (cost=0..0 rows=0) (actual time=9.01..9.04 rows=200 loops=1)
-    -> Table scan on <temporary>  (cost=2.5..2.5 rows=0) (actual time=9.01..9.03 rows=200 loops=1)
-        -> Temporary table with deduplication  (cost=0..0 rows=0) (actual time=9..9 rows=391 loops=1)
-            -> Window aggregate with buffering: sum(payment.amount) OVER (PARTITION BY c.customer_id )   (actual time=7.65..8.8 rows=634 loops=1)
-                -> Sort: c.customer_id  (actual time=7.62..7.68 rows=634 loops=1)
-                    -> Stream results  (cost=7449 rows=16500) (actual time=0.0795..7.48 rows=634 loops=1)
-                        -> Nested loop inner join  (cost=7449 rows=16500) (actual time=0.0731..7.29 rows=634 loops=1)
-                            -> Filter: (cast(p.payment_date as date) = '2005-07-30')  (cost=1674 rows=16500) (actual time=0.0608..6.63 rows=634 loops=1)
-                                -> Table scan on p  (cost=1674 rows=16500) (actual time=0.0504..5.37 rows=16044 loops=1)
-                            -> Single-row index lookup on c using PRIMARY (customer_id=p.customer_id)  (cost=0.25 rows=1) (actual time=865e-6..893e-6 rows=1 loops=634)
+> Limit: 200 row(s)  (actual time=9.05..9.1 rows=200 loops=1)
+    -> Table scan on <temporary>  (actual time=9.05..9.09 rows=200 loops=1)
+        -> Aggregate using temporary table  (actual time=9.05..9.05 rows=391 loops=1)
+            -> Nested loop inner join  (cost=4276 rows=1835) (actual time=0.125..8.08 rows=642 loops=1)
+                -> Nested loop inner join  (cost=3633 rows=1835) (actual time=0.0491..7.35 rows=642 loops=1)
+                    -> Filter: ((p.payment_date >= TIMESTAMP'2005-07-30 00:00:00') and (p.payment_date < <cache>(('2005-07-30' + interval 1 day))))  (cost=1674 rows=1833) (actual time=0.0415..5.94 rows=634 loops=1)
+                        -> Table scan on p  (cost=1674 rows=16500) (actual time=0.0318..4.4 rows=16044 loops=1)
+                    -> Covering index lookup on r using rental_date (rental_date=p.payment_date)  (cost=0.969 rows=1) (actual time=0.00146..0.00206 rows=1.01 loops=634)
+                -> Single-row index lookup on c using PRIMARY (customer_id=r.customer_id)  (cost=0.25 rows=1) (actual time=921e-6..951e-6 rows=1 loops=642)
 
 
 ```
-Сразу видно, что время выполнения запроса существенно изменилось. Было - 6774, стало - 9.03
- 
+Сразу видно, что время выполнения запроса существенно изменилось. Было - 6774, стало - 9.05
 
+Дополнительно, если используем индекс по столбцу `payment_date`, то запрос будет выполняться ещё быстрее, всего за 6.52
+
+![Название скриншота 2](https://github.com/Adrenokrome72/alifanov-hw-12-05/blob/main/2.jpg)
