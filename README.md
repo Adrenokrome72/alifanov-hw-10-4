@@ -18,37 +18,37 @@
 
 - Какие сетевые службы в ней разрешены?
 
-![Название скриншота 1](ссылка на скриншот 1)
+![Название скриншота 1](https://github.com/Adrenokrome72/alifanov-hw-13-01/blob/main/1.jpg)
 
-*ftp
-*ssh
-*telnet
-*smtp
-*domain
-*http
-*rpcbind
-*netbios-snn
-*exec
-*login
-*tcpwrapped
-*java-rmi
-*bindshell
-*nfs
-*mysql
-*postgresql
-*vnc
-*X11
-*irc
-*ajp13
-*http
+- ftp
+- ssh
+- telnet
+- smtp
+- domain
+- http
+- rpcbind
+- netbios-snn
+- exec
+- login
+- tcpwrapped
+- java-rmi
+- bindshell
+- nfs
+- mysql
+- postgresql
+- vnc
+- X11
+- irc
+- ajp13
+- http
 
 - Какие уязвимости были вами обнаружены? (список со ссылками: достаточно трёх уязвимостей)
 
-![Название скриншота 2](ссылка на скриншот 2)
+![Название скриншота 2](https://github.com/Adrenokrome72/alifanov-hw-13-01/blob/main/2.jpg)
 
-![Название скриншота 3](ссылка на скриншот 1)
+![Название скриншота 3](https://github.com/Adrenokrome72/alifanov-hw-13-01/blob/main/3.jpg)
 
-![Название скриншота 4](ссылка на скриншот 1)
+![Название скриншота 4](https://github.com/Adrenokrome72/alifanov-hw-13-01/blob/main/4.jpg)
 
 *Приведите ответ в свободной форме.*  
 
@@ -67,17 +67,17 @@
 Режимы сканирования отличаются типом сканириуемых портов, преднастроенными типами искомых флагов, скоростью сканирования, так, например на сканирование UDP портов ушло более 17 минут.
 
 - Как отвечает сервер?
-*Сканирование SYN:
-![Название скриншота 5](ссылка на скриншот 2)
+- Сканирование SYN:
+![Название скриншота 5](https://github.com/Adrenokrome72/alifanov-hw-13-01/blob/main/5.jpg)
 
-*FIN:
-![Название скриншота 6](ссылка на скриншот 2)
+- FIN:
+![Название скриншота 6](https://github.com/Adrenokrome72/alifanov-hw-13-01/blob/main/6.jpg)
 
-*Xmas:
-![Название скриншота 7](ссылка на скриншот 2)
+- Xmas:
+![Название скриншота 7](https://github.com/Adrenokrome72/alifanov-hw-13-01/blob/main/7.jpg)
 
-*UDP:
-![Название скриншота 8](ссылка на скриншот 2)
+- UDP:
+![Название скриншота 8](https://github.com/Adrenokrome72/alifanov-hw-13-01/blob/main/8.jpg)
 
 
 *Приведите ответ в свободной форме.*
