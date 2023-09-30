@@ -1,2 +1,3 @@
 terraform.tfstate
 terraform.tfstate.*
+yc_provider.tf
