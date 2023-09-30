@@ -15,7 +15,7 @@
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh-authorized-keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILuuXhTxZ9qwTiH6BBSPaIHduHofUSWafliO3OWo3HYS alifanov@alifanov
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPZlwKDf/yFKkarnbkUg4bOi2U15f0/PRBzl+wzkM4ny alifanov@alifanov
  chpasswd:
    list: |
      alifanov:admin
