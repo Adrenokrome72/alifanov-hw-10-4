@@ -86,30 +86,30 @@
 
 14. После чего нам необходимо получить сертификат для соединения с kibana:
 
-![Получаем сертификат](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/9.jpg )
+![Получаем сертификат](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/10.jpg )
 
 15. Копируем сертификат, переходим на хоста с kibana, и вставляем:
 
-![Вставляем сертификат](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/10.jpg )
+![Вставляем сертификат](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/11.jpg )
 
 16. Редактируем `sudo nano /etc/kibana/kibana.yml` и перезагружаем сервис.
 
-![Отредактировали1](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/11.jpg )
-![Отредактировали2](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/12.jpg)
+![Отредактировали1](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/12.jpg )
+![Отредактировали2](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/13.jpg)
 
 17. Переходим на хосты web1 и web2 для настройки передачи логов аналогичным образом, не перепутав адреса хостов:
 
-![Отредактировали3](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/13.jpg )
-![Отредактировали4](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/14.jpg )
-![Отредактировали5](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/15.jpg )
+![Отредактировали3](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/14.jpg )
+![Отредактировали4](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/15.jpg )
+![Отредактировали5](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/16.jpg )
 
 18. По завершении работы с веб серверами, переходим хосту с prometheus и соединяем хосты между собой и перезагружаем:
 
-![Объединили хосты](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/16.jpg )
-![Перезагрузили](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/17.jpg )
+![Объединили хосты](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/17.jpg )
+![Перезагрузили](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/18.jpg )
 
 19. После успешного завершения настроек, мы можем подключиться к веб форме grafana и проверяем подключение:
 
-![Grafana](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/18.jpg )
+![Grafana](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/19.jpg )
 
 20. 
