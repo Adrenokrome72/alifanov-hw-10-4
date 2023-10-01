@@ -1,7 +1,8 @@
-resource "yandex_compute_snapshot_schedule" "snapshot_schedule" {
-  name = "snapshot_schedule"
+resource "yandex_compute_snapshot_schedule" "snap" {
   schedule_policy {
-	expression = "10 0 ? * *"
+	expression = "0 2 * * *"
   }
+
   retention_period = "168h"
+
 }
