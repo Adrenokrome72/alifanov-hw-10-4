@@ -15,7 +15,7 @@ resource "yandex_compute_instance" "elasticsearch" {
   boot_disk {
     initialize_params {
       image_id = "fd8oshj0osht8svg6rfs"
-      size = 10
+      size = 20
     }
   }
 
@@ -45,7 +45,7 @@ resource "yandex_compute_instance" "kibana" {
   boot_disk {
     initialize_params {
       image_id = "fd8oshj0osht8svg6rfs"
-      size = 10
+      size = 15
     }
   }
 
