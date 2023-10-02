@@ -25,7 +25,7 @@
 
 4. По итогу мы видим, что построение прошло успешно и мы можем видеть назначенные IP-адреса всем хостам:
 
-![Список созданных хостов](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/1.jpg )
+![Список созданных хостов](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/1.jpg )
 
 5. Тестируем сайт командой 
 
@@ -34,7 +34,7 @@
 
 - получим:
 
-![Результат команды](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/2.jpg )
+![Результат команды](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/2.jpg )
 
 6. Подключаемся через ssh  к хосту `bastion_host_public`:
 
@@ -42,7 +42,7 @@
 
 - пароль `admin`
 
-![Результат команды](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/3.jpg )
+![Результат команды](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/3.jpg )
 
 7. Сперва нам нужно настроить на данном хосте видимость остальных хостов в сети, поэтому переходим к настройке 
 
@@ -54,7 +54,7 @@
 
 `ssh-copy-id <название хоста>`
 
-![Результат команды](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/4.jpg )
+![Результат команды](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/4.jpg )
 
 9. Добавляем ранее подготовленный репозиторий git с сервисами и конфигами для того чтобы расшарить между хостами необходимые сервисы.
 
@@ -68,9 +68,9 @@
 
 - по завершении убеждаемся, что всё установилось без ошибок, видя сообщения :
 
-![Результат команды web](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/5.jpg )
-![Результат команды ELK](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/6.jpg )
-![Результат команды monitor](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/7.jpg )
+![Результат команды web](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/5.jpg )
+![Результат команды ELK](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/6.jpg )
+![Результат команды monitor](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/7.jpg )
 
 11. Переходим на elasticsearch хост:
 
@@ -78,35 +78,35 @@
 
 12. Устанавливаем пароль для elastic и kibana:
 
-![Смена пароля](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/8.jpg )
+![Смена пароля](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/8.jpg )
 
 13. Раскомментируем Network в `sudo nano /etc/elasticsearch/elasticsearch.yml`
 
-![Настройка](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/9.jpg )
+![Настройка](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/9.jpg )
 
 14. После чего нам необходимо получить сертификат для соединения с kibana:
 
-![Получаем сертификат](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/10.jpg )
+![Получаем сертификат](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/10.jpg )
 
 15. Копируем сертификат, переходим на хоста с kibana, и вставляем:
 
-![Вставляем сертификат](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/11.jpg )
+![Вставляем сертификат](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/11.jpg )
 
 16. Редактируем `sudo nano /etc/kibana/kibana.yml` и перезагружаем сервис.
 
-![Отредактировали1](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/12.jpg )
-![Отредактировали2](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/13.jpg)
+![Отредактировали1](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/12.jpg )
+![Отредактировали2](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/13.jpg)
 
 17. Переходим на хосты web1 и web2 для настройки передачи логов аналогичным образом, не перепутав адреса хостов:
 
-![Отредактировали3](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/14.jpg )
-![Отредактировали4](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/15.jpg )
-![Отредактировали5](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/16.jpg )
+![Отредактировали3](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/14.jpg )
+![Отредактировали4](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/15.jpg )
+![Отредактировали5](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/16.jpg )
 
 18. По завершении работы с веб серверами, переходим хосту с prometheus и соединяем хосты между собой и перезагружаем:
 
-![Объединили хосты](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/17.jpg )
-![Перезагрузили](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/18.jpg )
+![Объединили хосты](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/17.jpg )
+![Перезагрузили](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/18.jpg )
 
 19. После успешного завершения настроек, мы можем подключиться к веб форме grafana и проверяем подключение и импортируем самый популярный дэшборд, который включает в себя всё самое для нас необходимое:
 
