@@ -116,12 +116,12 @@
 
 21. В заключении проверяем всё на работоспособность:
 
-![Grafana](http://158.160.11.45:3000/)
+[Grafana](http://158.160.11.45:3000/)
 
 ![Elastic](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/21.jpg)
 
 ![logstash](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/22.jpg)
 
-![Kibana](http://130.193.40.20:5601) - login: elastic; pass:Elastic555 
+[Kibana](http://130.193.40.20:5601) - login: elastic; pass:Elastic555 
 
-![Web1 and 2](http://51.250.109.241/)
+[Web1 and 2](http://51.250.109.241/)
