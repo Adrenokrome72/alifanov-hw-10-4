@@ -23,9 +23,7 @@
 
 `terraform apply`
 
-4. По итогу мы видим, что построение прошло успешно и мы можем видеть назначенные IP-адреса всем хостам:
-
-![Список созданных хостов](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/1.jpg )
+4. По итогу мы видим, что построение прошло успешно и мы можем видеть назначенные IP-адреса всем хостам
 
 5. Тестируем сайт командой 
 
@@ -74,13 +72,13 @@
 
 11. Переходим на elasticsearch хост:
 
-`ssh alifanov@<IP-elastic>`
+`ssh alifanov@elastic`
 
 12. Устанавливаем пароль для elastic и kibana:
 
 ![Смена пароля](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/8.jpg )
 
-13. Раскомментируем Network в `sudo nano /etc/elasticsearch/elasticsearch.yml`
+13. Раскомментируем Network в `sudo nano /etc/elasticsearch/elasticsearch.yml` и впишем IP elastic хоста
 
 ![Настройка](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/9.jpg )
 
@@ -114,13 +112,16 @@
 
 20. Проверяем, что снэпшоты активированы:
 
-![Grafana](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/20.jpg )
+![Snaps](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/20.jpg )
 
 21. В заключении проверяем всё на работоспособность:
 
-![Grafana]()
+![Grafana](http://158.160.11.45:3000/)
+
 ![Elastic](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/21.jpg)
+
 ![logstash](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/22.jpg)
-![Kibana]()
-![Web1]()
-![Web2]()
+
+![Kibana](http://130.193.40.20:5601) - login: elastic; pass:Elastic555 
+
+![Web1 and 2](http://51.250.109.241/)
