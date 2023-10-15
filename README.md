@@ -108,19 +108,19 @@
 
 19. После успешного завершения настроек, мы можем подключиться к веб форме grafana и проверяем подключение и импортируем самый популярный дэшборд, который включает в себя всё самое для нас необходимое:
 
-![Grafana](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/19.jpg )
+![Grafana](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/19.jpg )
 
 20. Проверяем, что снэпшоты активированы:
 
-![Snaps](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/20.jpg )
+![Snaps](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/20.jpg )
 
 21. В заключении проверяем всё на работоспособность:
 
 [Grafana](http://158.160.11.45:3000/)
 
-![Elastic](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/21.jpg)
+![Elastic](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/21.jpg)
 
-![logstash](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/22.jpg)
+![logstash](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/22.jpg)
 
 [Kibana](http://130.193.40.20:5601) - login: elastic; pass:Elastic555 
 
