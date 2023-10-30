@@ -1,0 +1,18 @@
+- hosts: elastic
+  become: yes
+  gather_facts: true
+  tasks:
+
+  - name: install elastic
+    apt:
+      deb: "https://mirror.yandex.ru/mirrors/elastic/8/pool/main/e/elasticsearch/elasticsearch-8.10.0-amd64.deb"
+
+  - name: Копируем конфигурационный файл:
+    copy:
+      src: elasticsearch.yml
+      dest: /etc/elasticsearch/elasticsearch.yml
+
+  - name: Проверяем рабосопособность сервиса:
+    systemd:
+      state: started
+      name: elasticsearch
