@@ -34,10 +34,10 @@
       mode: '0644'
     notify: restart nginx
 
-  - name: "Копируем подготовленную страницу сайта:"
-    copy:
-      src: ./nginx/site/
-      dest: /var/www/{{ domain }}
+  - name: Изменяем
+    template:
+      src: templates/content
+      dest: /var/www/html/index.nginx-debian.html
         
   handlers:
     - name: restart nginx
