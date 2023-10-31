@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Diplom work for Netology</title>
+</head>
+<body>
+<p>&nbsp;</p>
+<div><h1 style="text-align: center;">Host configuration</h1></div>
+<div><p style="text-align: center;"><em><strong>Configuration:</strong></em></p></div>
+<div><p>Hostname: {{ ansible_facts.hostname }}</p></div>
+<div><p>OS: {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}</p></div>
+<div><p>CPU: {{ ansible_facts.processor }}</p></div>
+<div><p>RAM: {{ ansible_facts.memtotal_mb }}</p></div>
+<div><p>HDD: {{ ansible_facts.mounts.0.device }} {{ ansible_facts.mounts.0.size_total }}</p></div>
+<div><p>IP: {{ ansible_facts.default_ipv4.address }}</p></div>
+<div><p>&nbsp;</p></div>
+<div><p style="text-align: right;">Alifanov Sergey</p></div>
+</body>
+</html>

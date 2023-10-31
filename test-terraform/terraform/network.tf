@@ -52,12 +52,12 @@ resource "yandex_alb_target_group" "target_group" {
 
   target {
     ip_address = yandex_compute_instance.web-1.network_interface.0.ip_address
-    subnet_id  = yandex_vpc_subnet.in-web-1.id
+    subnet_id  = yandex_vpc_subnet.web-1.id
   }
 
   target {
     ip_address = yandex_compute_instance.web-2.network_interface.0.ip_address
-    subnet_id  = yandex_vpc_subnet.in-web-2.id
+    subnet_id  = yandex_vpc_subnet.web-2.id
   }
 }
 
@@ -118,7 +118,7 @@ resource "yandex_alb_virtual_host" "root" {
 resource "yandex_alb_load_balancer" "lb" {
   name               = "load-balancer"
   network_id         = yandex_vpc_network.vpcnet.id
-  security_group_ids = [yandex_vpc_security_group.load-balancer.id, yandex_vpc_security_group.in.id] 
+  security_group_ids = [yandex_vpc_security_group.public-load-balancer.id, yandex_vpc_security_group.security.id] 
 
   allocation_policy {
     location {
