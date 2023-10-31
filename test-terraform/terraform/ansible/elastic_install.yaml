@@ -3,7 +3,7 @@
   gather_facts: true
   tasks:
 
-  - name: install elastic
+  - name: Устанавливаем elasticsearch
     apt:
       deb: "https://mirror.yandex.ru/mirrors/elastic/8/pool/main/e/elasticsearch/elasticsearch-8.10.0-amd64.deb"
 
