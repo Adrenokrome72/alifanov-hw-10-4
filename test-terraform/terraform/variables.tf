@@ -7,6 +7,3 @@ variable "my_cloud" {
 variable "my_folder" {
   type = string
 }
-variable "my_key" {
-  type = string
-}
