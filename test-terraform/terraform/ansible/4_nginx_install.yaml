@@ -34,7 +34,7 @@
       mode: '0644'
     notify: restart nginx
 
-  - name: Изменяем
+  - name: "Копируем нашу заглушку для сайта"
     template:
       src: ./nginx/index.html
       dest: /var/www/html/index.nginx-debian.html
