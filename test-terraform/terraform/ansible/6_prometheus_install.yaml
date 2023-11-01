@@ -1,18 +1,18 @@
 ---
 - hosts: prometheus
   tasks:
-    - name: Создаем группу:
+    - name: "Создаем группу:"
       group:
         name: prometheus
         state: present
 
-    - name: Создаем пользователя и помещаем его в группу:
+    - name: "Создаем пользователя и помещаем его в группу:"
       user:
         name: prometheus
         groups: prometheus
         state: present
 
-    - name: Создаем директорию "/tmp/prometheus":
+    - name: "Создаем директорию /tmp/prometheus:"
       file:
         path: /tmp/prometheus
         state: directory
@@ -20,13 +20,13 @@
         group: root
         mode: 0644
 
-    - name: Скачиваем архив:
+    - name: "Скачиваем архив:"
       ansible.builtin.unarchive:
         src: https://github.com/prometheus/prometheus/releases/download/v2.48.0-rc.1/prometheus-2.48.0-rc.1.linux-amd64.tar.gz
         dest: /tmp/prometheus
         remote_src: yes
 
-    - name: Создаем директорию "/etc/prometheus"
+    - name: "Создаем директорию /etc/prometheus"
       file:
         path: /etc/prometheus
         state: directory
@@ -34,7 +34,7 @@
         group: prometheus
         mode: 0775
 
-    - name: Создаем директорию "/var/lib/prometheus" 
+    - name: "Создаем директорию /var/lib/prometheus" 
       file:
         path: /var/lib/prometheus
         state: directory
@@ -42,52 +42,52 @@
         group: prometheus
         mode: 0775
 
-    - name: Копируем файлы архива в /usr/local/bin/
+    - name: "Копируем файлы архива в /usr/local/bin/"
       copy:
         src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/prometheus
         dest: /usr/local/bin/
         remote_src: yes
 
-    - name: Копируем promtool в /usr/local/bin/
+    - name: "Копируем promtool в /usr/local/bin/"
       copy:
         src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/promtool
         dest: /usr/local/bin/
         remote_src: yes
 
-    - name: Копируем console_libraries в /etc/prometheus
+    - name: "Копируем console_libraries в /etc/prometheus"
       copy:
         src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/console_libraries
         dest: /etc/prometheus
         remote_src: yes
 
-    - name: Копируем console file в /etc/prometheus
+    - name: "Копируем console file в /etc/prometheus"
       copy:
         src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/consoles
         dest: /etc/prometheus
         remote_src: yes
 
-    - name: Копируем prometheus.yml в /etc/prometheus
+    - name: "Копируем prometheus.yml в /etc/prometheus"
       copy:
         src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/prometheus.yml
         dest: /etc/prometheus
         remote_src: yes
 
-    - name: chown -R prometheus:prometheus /etc/prometheus /var/lib/prometheus
+    - name: "chown -R prometheus:prometheus /etc/prometheus /var/lib/prometheus"
       command: chown -R prometheus:prometheus /etc/prometheus /var/lib/prometheus
 
-    - name: chown prometheus:prometheus /usr/local/bin/prometheus
+    - name: "chown prometheus:prometheus /usr/local/bin/prometheus"
       command: chown prometheus:prometheus /usr/local/bin/prometheus
 
-    - name: chown prometheus:prometheus /usr/local/bin/promtool
+    - name: "chown prometheus:prometheus /usr/local/bin/promtool"
       command: chown prometheus:prometheus /usr/local/bin/promtool
 
-    - name: chmod +x /usr/local/bin/promtool
+    - name: "chmod +x /usr/local/bin/promtool"
       command: chmod +x /usr/local/bin/promtool
 
-    - name: chmod +x /usr/local/bin/prometheus
+    - name: "chmod +x /usr/local/bin/prometheus"
       command: chmod +x /usr/local/bin/prometheus
 
-    - name: Создаем prometheus.service
+    - name: "Создаем prometheus.service"
       file:
         path: "/etc/systemd/system/prometheus.service"
         owner: root
@@ -95,7 +95,7 @@
         mode: 0775
         state: touch
 
-    - name: Добавляем содержимое prometheus.service
+    - name: "Добавляем содержимое prometheus.service"
       lineinfile:
         dest: /etc/systemd/system/prometheus.service
         line: "{{ item }}"
@@ -116,27 +116,27 @@
         - "[Install]"
         - WantedBy=multi-user.target
 
-    - name: chown -R prometheus:prometheus /var/lib/prometheus
+    - name: "chown -R prometheus:prometheus /var/lib/prometheus"
       command: chown -R prometheus:prometheus /var/lib/prometheus
 
-    - name: Добавляем nginx hosts
+    - name: "Добавляем nginx hosts"
       lineinfile:
         dest: /etc/prometheus/prometheus.yml
         regexp: '^\s*- targets:'
         line: '     - targets: [''192.168.3.5:9090'', ''192.168.1.5:9100'', ''192.168.2.5:9100'', ''192.168.1.5:4040'', ''192.168.2.5:4040'']'
         backrefs: yes
-#########
-    - name: Перезапускаем демоны:
+        
+    - name: "Перезапускаем демоны:"
       systemd:
         daemon_reload: yes
 
-    - name: Проверяем работоспособность сервиса:
+    - name: "Проверяем работоспособность сервиса:"
       systemd:
         state: started
         name: prometheus
 
 
-    - name: Активируем сервис:
+    - name: "Активируем сервис:"
       systemd:
         name: prometheus
         enabled: yes
