@@ -24,6 +24,7 @@ resource "yandex_compute_instance" "web-1" {
   }
 
   metadata = {
+    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
     user-data = "${file("./meta.txt")}"
   }
 
