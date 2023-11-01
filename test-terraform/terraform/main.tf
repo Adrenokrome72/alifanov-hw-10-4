@@ -128,6 +128,7 @@ resource "yandex_compute_instance" "prometheus" {
   }
 
   metadata = {
+    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
     user-data = "${file("./meta.txt")}"
   }
 
