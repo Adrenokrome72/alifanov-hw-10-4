@@ -57,6 +57,7 @@ resource "yandex_compute_instance" "web-2" {
   }
 
   metadata = {
+    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
     user-data = "${file("./meta.txt")}"
   }
 
@@ -92,6 +93,7 @@ resource "yandex_compute_instance" "bastion" {
   }
 
   metadata = {
+    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
     user-data = "${file("./meta.txt")}"
   }
 
@@ -161,6 +163,7 @@ resource "yandex_compute_instance" "grafana" {
   }
 
   metadata = {
+    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
     user-data = "${file("./meta.txt")}"
   }
 
@@ -196,6 +199,7 @@ resource "yandex_compute_instance" "elastic" {
   }
 
   metadata = {
+    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
     user-data = "${file("./meta.txt")}"
   }
 
@@ -230,6 +234,7 @@ resource "yandex_compute_instance" "kibana" {
   }
 
   metadata = {
+    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
     user-data = "${file("./meta.txt")}"
   }
 
