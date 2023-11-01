@@ -3,16 +3,16 @@
   gather_facts: true
   tasks:
 
-  - name: Устанавливаем kibana:
+  - name: "Устанавливаем kibana:"
     apt:
       deb: "https://mirror.yandex.ru/mirrors/elastic/8/pool/main/k/kibana/kibana-8.10.1-amd64.deb"
 
-  - name: Копируем конфигурационный файл:
+  - name: "Копируем конфигурационный файл:"
     copy:
       src: kibana.yml
       dest: /etc/kibana/kibana.yml
 
-  - name: Проверяем работоспособность сервиса:
+  - name: "Проверяем работоспособность сервиса:"
     systemd:
       state: started
       name: kibana
