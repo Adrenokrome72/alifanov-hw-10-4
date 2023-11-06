@@ -1,0 +1,9 @@
+#cloud-config
+users:
+  - name: alifanov
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh-authorized-keys:
+       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDM66zA+mX0Ikp6Ow/2WZ+0SWQ0BKBUOht5B2VajF5z7nvJJDFXEp2RhVvPQv7wbICh5K5y7jVvVzQqgxy3uX2ZsNjYkVTj5QKjSwLUnLSNK2tGBkvq1z2YC+W3sqIs5q752f1iqZfMPxhmyI53re/z+vVuOfd/YqY6wfYxvtPlsHK02aJQP9WrYX99xQfkeWUMBiqjcJrYkeKH6Aq5n1BR3edAvcblk1DkVT6OI0Q+e7UEyurnjgqxcAffqomezNvSMn6TCHnJu85Qc5iNPzxtfd/Lvau84zkgEjo4MY39ITXsjjx+GsI5OWd7MBzqYOBtbSQnAd0bOMoPX7Xznuanu9iNW52h6aGrnd4kykK+evwq4c+98FISRv3UBJdbGgNtpZ3dmyJDoLiL5kbL0Jri5kzr2rbHO8GuZEgFlntZaglXfXbNTi3OhgIlV94apoXHteAW0nS8oil1dfzxxn+OT1hBKRmXvP9OswSvNFBBbzr1GVx/JTBU2/WpMMTGQ8U= alifanov@alifanov
+

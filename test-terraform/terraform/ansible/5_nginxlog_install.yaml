@@ -1,8 +1,8 @@
 - hosts: web
   become: yes
   gather_facts: true
-  roles:
-      - alifanov.prometheus-nginxlog-exporter
+  #roles:
+      #- alifanov.prometheus-nginxlog-exporter
   vars:
     nginxlog_exporter_version: 1.9.2
     nginxlog_exporter_config_vars:

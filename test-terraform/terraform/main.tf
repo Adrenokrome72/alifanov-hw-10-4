@@ -1,245 +1,440 @@
-# web-site
+# network with subnets
+ 
+ resource "yandex_vpc_network" "vpcnet" {
+   name = "net"
+ }
+ 
+ resource "yandex_vpc_subnet" "subnet1" {
+   name           = "subnet1"
+   zone           = "ru-central1-a"
+   network_id     = yandex_vpc_network.vpcnet.id
+   v4_cidr_blocks = ["192.168.1.0/24"]
+ }
+ 
+ resource "yandex_vpc_subnet" "subnet2" {
+   name           = "subnet2"
+   zone           = "ru-central1-b"
+   network_id     = yandex_vpc_network.vpcnet.id
+   v4_cidr_blocks = ["192.168.2.0/24"]
+ }
+ 
+#security group
 
-resource "yandex_compute_instance" "web-1" {
-  name        = "vm-web-1"
-  hostname    = "web-1"
-  zone        = "ru-central1-a"
+ resource "yandex_vpc_security_group" "security" {
+   name        = "security"
+   network_id  = yandex_vpc_network.vpcnet.id
+ 
+   ingress {
+     protocol       = "TCP"
+     description    = "grafana"
+     v4_cidr_blocks = ["0.0.0.0/0"]
+     port           = 3000
+   }
+ 
+   ingress {
+     protocol       = "TCP"
+     description    = "kibana"
+     v4_cidr_blocks = ["0.0.0.0/0"]
+     port           = 5601
+   }
+   
+   ingress {
+     protocol       = "TCP"
+     description    = "app load balancer"
+     v4_cidr_blocks = ["0.0.0.0/0"]
+     port           = 80
+   }
+   
+   ingress {
+     protocol       = "TCP"
+     description    = "SSH-permission"
+     v4_cidr_blocks = ["192.168.0.0/16"]
+     port           = 22
+   }
+   
+   
+   egress {
+     protocol       = "ANY"
+     v4_cidr_blocks = ["0.0.0.0/0"]
+     from_port      = 0
+     to_port        = 65535
+   }
+ }
+ 
+ resource "yandex_vpc_security_group" "bastion" {
+   name        = "bastion"
+   network_id  = yandex_vpc_network.vpcnet.id
+ 
+   ingress {
+     protocol       = "TCP"
+     description    = "bastion"
+     v4_cidr_blocks = ["0.0.0.0/0"]
+     port           = 22
+   }
+ 
+   egress {
+     protocol       = "ANY"
+     v4_cidr_blocks = ["0.0.0.0/0"]
+     from_port      = 0
+     to_port        = 65535
+   }
+ }
 
+#nginx-1 vm
+
+ resource "yandex_compute_instance" "vm1" {
+   name                      = "web1"
+   hostname                  = "web1"
+   zone                      = "ru-central1-a"
+   allow_stopping_for_update = true
+   
+   resources {
+     core_fraction = 20
+     cores         = 2
+     memory        = 2
+   }
+ 
+   boot_disk {
+     initialize_params {
+       image_id = "fd8irgqv3b16i3rv20ip"
+     }
+   }
+ 
+   network_interface {
+     subnet_id  = yandex_vpc_subnet.subnet1.id
+     ip_address = "192.168.1.10"
+	 nat        = false
+   }
+ 
+   metadata = {
+     user-data = "${file("/home/alifanov/alifanov-sys-diplom/test-terraform/terraform/meta.yaml")}"
+   }
+ }
+ 
+ output "internal_ip_address_vm_1" {
+   value = yandex_compute_instance.vm1.network_interface.0.ip_address
+ }
+
+#nginx-2 vm
+
+ resource "yandex_compute_instance" "vm2" {
+   name                      = "web2"
+   hostname                  = "web2"
+   zone                      = "ru-central1-b"
+   allow_stopping_for_update = true
+ 
+   resources {
+     core_fraction = 20
+     cores         = 2
+     memory        = 2
+   }
+ 
+   boot_disk {
+     initialize_params {
+       image_id = "fd8irgqv3b16i3rv20ip"
+     }
+   }
+ 
+   network_interface {
+     subnet_id  = yandex_vpc_subnet.subnet2.id
+	 ip_address = "192.168.2.10"
+     nat        = false
+   }
+ 
+   metadata = {
+     user-data = "${file("/home/alifanov/alifanov-sys-diplom/test-terraform/terraform/meta.yaml")}"
+   }
+ }
+ 
+ output "internal_ip_address_vm_2" {
+   value = yandex_compute_instance.vm2.network_interface.0.ip_address
+ }
+
+#prometheus vm
+ 
+ resource "yandex_compute_instance" "vm3" {
+   name                      = "prometheus"
+   hostname                  = "prometheus"
+   zone                      = "ru-central1-a"
+   allow_stopping_for_update = true
+  
   resources {
-    cores  = 2
-    memory = 2
     core_fraction = 20
-  }
+    cores         = 2
+    memory        = 2
+   }
+ 
+   boot_disk {
+     initialize_params {
+       image_id = "fd8irgqv3b16i3rv20ip"
+     }
+   }
+ 
+   network_interface {
+     subnet_id  = yandex_vpc_subnet.subnet1.id
+     ip_address = "192.168.1.11"
+     nat        = false
+   }
+   
+   metadata = {
+     user-data = "${file("/home/alifanov/alifanov-sys-diplom/test-terraform/terraform/meta.yaml")}"
+   }
+ }
+ 
+ output "internal_ip_address_vm_3" {
+   value = yandex_compute_instance.vm3.network_interface.0.ip_address
+ }
 
-  boot_disk {
-    initialize_params {
-      image_id = "fd8irgqv3b16i3rv20ip"
+#elasticsearch vm
+
+ resource "yandex_compute_instance" "vm4" {
+   name                      = "elasticsearch"
+   hostname                  = "elasticsearch"
+   zone                      = "ru-central1-a"
+   allow_stopping_for_update = true
+ 
+   resources {
+     core_fraction = 20
+     cores         = 2
+     memory        = 2
     }
+ 
+    boot_disk {
+      initialize_params {
+        image_id = "fd8irgqv3b16i3rv20ip"
+      }
+    }
+    
+    network_interface {
+     subnet_id  = yandex_vpc_subnet.subnet1.id
+	 ip_address = "192.168.1.12"
+     nat        = false
+    }
+    
+    metadata = {
+      user-data = "${file("/home/alifanov/alifanov-sys-diplom/test-terraform/terraform/meta.yaml")}"
+    }
+ }
+ 
+ output "internal_ip_address_vm_4" {
+   value = yandex_compute_instance.vm4.network_interface.0.ip_address
+ }
+
+#grafana vm
+
+ resource "yandex_compute_instance" "vm5" {
+   name                      = "grafana"
+   hostname                  = "grafana"
+   zone                      = "ru-central1-a"
+   allow_stopping_for_update = true
+   
+  resources {
+    core_fraction = 20
+    cores         = 2
+    memory        = 2
+   }
+ 
+   boot_disk {
+     initialize_params {
+       image_id = "fd8irgqv3b16i3rv20ip"
+     }
+   }
+ 
+   network_interface {
+     subnet_id          = yandex_vpc_subnet.subnet1.id
+     ip_address         = "192.168.1.13"
+     nat                = true
+     security_group_ids = [yandex_vpc_security_group.security.id]
+   }
+ 
+   metadata = {
+     user-data = "${file("/home/alifanov/alifanov-sys-diplom/test-terraform/terraform/meta.yaml")}"
+   }
+ }
+ 
+ output "internal_ip_address_vm_5" {
+   value = yandex_compute_instance.vm5.network_interface.0.ip_address
+ }
+ 
+ output "external_ip_address_vm_5" {
+   value = yandex_compute_instance.vm5.network_interface.0.nat_ip_address
+ }
+ 
+#kibana vm
+
+ resource "yandex_compute_instance" "vm6" {
+   name                      = "kibana"
+   hostname                  = "kibana"
+   zone                      = "ru-central1-a"
+   allow_stopping_for_update = true
+   
+  resources {
+    core_fraction = 20
+    cores         = 2
+    memory        = 2
+   }
+ 
+   boot_disk {
+     initialize_params {
+       image_id = "fd8irgqv3b16i3rv20ip"
+     }
+   }
+ 
+   network_interface {
+     subnet_id          = yandex_vpc_subnet.subnet1.id
+     ip_address         = "192.168.1.14"
+     nat                = true
+     security_group_ids = [yandex_vpc_security_group.security.id]
+   }
+ 
+   metadata = {
+     user-data = "${file("/home/alifanov/alifanov-sys-diplom/test-terraform/terraform/meta.yaml")}"
+   }
+ }
+ 
+ output "internal_ip_address_vm_6" {
+   value = yandex_compute_instance.vm6.network_interface.0.ip_address
+ }
+ 
+ output "external_ip_address_vm_6" {
+   value = yandex_compute_instance.vm6.network_interface.0.nat_ip_address
+ }
+ 
+#bastion vm
+
+ resource "yandex_compute_instance" "vm7" {
+   name                      = "bastion"
+   hostname                  = "bastion"
+   zone                      = "ru-central1-a"
+   allow_stopping_for_update = true
+   
+  resources {
+    core_fraction = 20
+    cores         = 2
+    memory        = 2
+   }
+ 
+   boot_disk {
+     initialize_params {
+       image_id = "fd8irgqv3b16i3rv20ip"
+     }
+   }
+ 
+   network_interface {
+     subnet_id          = yandex_vpc_subnet.subnet1.id
+     ip_address         = "192.168.1.15"
+     nat                = true
+     security_group_ids = [yandex_vpc_security_group.bastion.id]
+   }
+ 
+   metadata = {
+     user-data = "${file("/home/alifanov/alifanov-sys-diplom/test-terraform/terraform/meta.yaml")}"
+   }
+ }
+ 
+ output "internal_ip_address_vm_7" {
+   value = yandex_compute_instance.vm7.network_interface.0.ip_address
+ }
+ 
+ output "external_ip_address_vm_7" {
+   value = yandex_compute_instance.vm7.network_interface.0.nat_ip_address
+ }
+
+#target group
+
+resource "yandex_alb_target_group" "target" {
+  name           = "target-group"
+
+  target {
+    subnet_id    = yandex_vpc_subnet.subnet1.id
+    ip_address   = yandex_compute_instance.vm1.network_interface.0.ip_address
   }
 
-  network_interface {
-    subnet_id          = yandex_vpc_subnet.web-1.id
-    security_group_ids = [yandex_vpc_security_group.security.id]
-    ip_address         = "192.168.1.5"
-  }
-
-  metadata = {
-    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
-    user-data = "${file("./meta.txt")}"
-  }
-
-  scheduling_policy {  
-    preemptible = true
+  target {
+    subnet_id    = yandex_vpc_subnet.subnet2.id
+    ip_address   = yandex_compute_instance.vm2.network_interface.0.ip_address
   }
 }
 
-resource "yandex_compute_instance" "web-2" {
-  name        = "vm-web-2"
-  hostname    = "web-2"
-  zone        = "ru-central1-b"
 
-  resources {
-    cores  = 2
-    memory = 2
-    core_fraction = 20
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = "fd8irgqv3b16i3rv20ip" 
+resource "yandex_alb_backend_group" "backend-group" {
+  name                     = "backend-group"
+  session_affinity {
+    connection {
+    source_ip = false
     }
   }
 
-  network_interface {
-    subnet_id          = yandex_vpc_subnet.web-2.id
-    security_group_ids = [yandex_vpc_security_group.security.id]
-    ip_address         = "192.168.2.5"
-  }
-
-  metadata = {
-    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
-    user-data = "${file("./meta.txt")}"
-  }
-
-  scheduling_policy {  
-    preemptible = true
+  http_backend {
+    name                   = "backend-group"
+    weight                 = 1
+    port                   = 80
+    target_group_ids       = [yandex_alb_target_group.target.id]
+    load_balancing_config {
+      panic_threshold      = 90
+    }    
+    healthcheck {
+      timeout              = "10s"
+      interval             = "2s"
+      healthy_threshold    = 10
+      unhealthy_threshold  = 15 
+      http_healthcheck {
+        path               = "/"
+      }
+    }
   }
 }
 
+#http-router
 
-# bastion
-resource "yandex_compute_instance" "bastion" {
-  name        = "vm-bastion"
-  hostname    = "bastion"
-  zone        = "ru-central1-c"
-
-  resources {
-    cores  = 2
-    memory = 2
-    core_fraction = 20
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = "fd8irgqv3b16i3rv20ip" 
-    }
-  }
-
-  network_interface {
-    subnet_id          = yandex_vpc_subnet.public.id
-    nat                = true
-    security_group_ids = [yandex_vpc_security_group.security.id, yandex_vpc_security_group.bastion.id]
-    ip_address         = "192.168.4.5"
-  }
-
-  metadata = {
-    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
-    user-data = "${file("./meta.txt")}"
-  }
-
-  scheduling_policy {  
-    preemptible = true
+resource "yandex_alb_http_router" "tf-router" {
+  name          = "router"
+  labels        = {
+    tf-label    = "tf-label-value"
+    empty-label = ""
   }
 }
 
-
-# prometheus 
-resource "yandex_compute_instance" "prometheus" {
-  name        = "vm-prometheus"
-  hostname    = "prometheus"
-  zone        = "ru-central1-c"
-
-  resources {
-    cores  = 2
-    memory = 2
-    core_fraction = 20
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = "fd8irgqv3b16i3rv20ip" 
+resource "yandex_alb_virtual_host" "my-virtual-host" {
+  name                    = "vm-main"
+  http_router_id          = yandex_alb_http_router.tf-router.id
+  route {
+    name                  = "main"
+    http_route {
+      http_route_action {
+        backend_group_id  = yandex_alb_backend_group.backend-group.id
+        timeout           = "60s"
+      }
     }
-  }
-
-  network_interface {
-    subnet_id          = yandex_vpc_subnet.in-services.id
-    security_group_ids = [yandex_vpc_security_group.security.id]
-    ip_address         = "192.168.3.5"
-  }
-
-  metadata = {
-    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
-    user-data = "${file("./meta.txt")}"
-  }
-
-  scheduling_policy {  
-    preemptible = true
   }
 }
 
+#balancer
 
-# grafana 
-resource "yandex_compute_instance" "grafana" {
-  name        = "vm-grafana"
-  hostname    = "grafana"
-  zone        = "ru-central1-c"
+resource "yandex_alb_load_balancer" "balancer" {
+  name        = "balancer"
+  network_id  = yandex_vpc_network.vpcnet.id
 
-  resources {
-    cores  = 2
-    memory = 2
-    core_fraction = 20
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = "fd8irgqv3b16i3rv20ip" 
+  allocation_policy {
+    location {
+      zone_id   = "ru-central1-a"
+      subnet_id = yandex_vpc_subnet.subnet1.id   
     }
   }
 
-  network_interface {
-    subnet_id          = yandex_vpc_subnet.public.id
-    nat                = true
-    security_group_ids = [yandex_vpc_security_group.security.id, yandex_vpc_security_group.grafana.id]
-    ip_address         = "192.168.4.10"
-  }
-
-  metadata = {
-    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
-    user-data = "${file("./meta.txt")}"
-  }
-
-  scheduling_policy {  
-    preemptible = true
-  }
-}
-
-
-# elastic 
-resource "yandex_compute_instance" "elastic" {
-  name        = "vm-elastic"
-  hostname    = "elastic"
-  zone        = "ru-central1-c"
-
-  resources {
-    cores  = 2
-    memory = 4
-    core_fraction = 20
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = "fd8irgqv3b16i3rv20ip" 
-      size     = 6
+  listener {
+    name = "listener"
+    endpoint {
+      address {
+        external_ipv4_address {
+        }
+      }
+      ports = [ 80 ]
     }
-  }
-
-  network_interface {
-    subnet_id          = yandex_vpc_subnet.in-services.id
-    security_group_ids = [yandex_vpc_security_group.security.id]
-    ip_address         = "192.168.3.10"
-  }
-
-  metadata = {
-    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
-    user-data = "${file("./meta.txt")}"
-  }
-
-  scheduling_policy {  
-    preemptible = true
-  }
-}
-
-# kibana 
-resource "yandex_compute_instance" "kibana" {
-  name        = "vm-kibana"
-  hostname    = "kibana"
-  zone        = "ru-central1-c"
-
-  resources {
-    cores  = 2
-    memory = 2
-    core_fraction = 20
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = "fd8irgqv3b16i3rv20ip" 
+    http {
+      handler {
+        http_router_id = yandex_alb_http_router.tf-router.id
+      }
     }
-  }
-
-  network_interface {
-    subnet_id          = yandex_vpc_subnet.public.id
-    nat                = true
-    security_group_ids = [yandex_vpc_security_group.security.id, yandex_vpc_security_group.public-kibana.id]
-    ip_address         = "192.168.4.15"
-  }
-
-  metadata = {
-    ssh-keys = "alifanov:${file("~/.ssh/id_ed25519.pub")}"
-    user-data = "${file("./meta.txt")}"
-  }
-
-  scheduling_policy {  
-    preemptible = true
   }
 }

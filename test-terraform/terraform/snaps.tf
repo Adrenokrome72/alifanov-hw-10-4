@@ -11,11 +11,11 @@ resource "yandex_compute_snapshot_schedule" "default" {
     description = "daily"
   }
 
-  disk_ids = [yandex_compute_instance.web-1.boot_disk[0].disk_id,
-              yandex_compute_instance.web-2.boot_disk[0].disk_id,
-              yandex_compute_instance.bastion.boot_disk[0].disk_id,
-              yandex_compute_instance.prometheus.boot_disk[0].disk_id,
-              yandex_compute_instance.grafana.boot_disk[0].disk_id,
-              yandex_compute_instance.elastic.boot_disk[0].disk_id,
-              yandex_compute_instance.kibana.boot_disk[0].disk_id]
+  disk_ids = [yandex_compute_instance.vm1.boot_disk[0].disk_id,
+    yandex_compute_instance.vm2.boot_disk[0].disk_id,
+    yandex_compute_instance.vm3.boot_disk[0].disk_id,
+    yandex_compute_instance.vm4.boot_disk[0].disk_id,
+    yandex_compute_instance.vm5.boot_disk[0].disk_id,
+    yandex_compute_instance.vm6.boot_disk[0].disk_id,
+  yandex_compute_instance.vm7.boot_disk[0].disk_id]
 }
