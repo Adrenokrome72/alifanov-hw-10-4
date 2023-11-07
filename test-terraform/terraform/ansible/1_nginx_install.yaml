@@ -8,7 +8,6 @@
   - name: "Устанавливаем nginx:"
     apt:
       name: nginx
-      state: latest
 
   - name: "Создаем директорию www"
     file:
