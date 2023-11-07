@@ -4,7 +4,7 @@ server.port: 5601
 # Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.
 # The default is 'localhost', which usually means remote machines will not be able to connect.
 # To allow connections from remote users, set this parameter to a non-loopback address.
-server.host: "192.168.4.15"
+server.host: "192.168.1.14"
 #use local ip
 #
 # Enables you to specify a path to mount Kibana at if you are running behind a proxy.
@@ -26,4 +26,4 @@ server.host: "192.168.4.15"
 #server.name: "your-hostname"
 
 # The URLs of the Elasticsearch instances to use for all your queries.
-elasticsearch.hosts: ["http://192.168.3.10:9200"]
+elasticsearch.hosts: ["http://192.168.1.12:9200"]
