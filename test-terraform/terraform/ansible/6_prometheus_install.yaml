@@ -22,7 +22,7 @@
 
     - name: "Скачиваем архив:"
       ansible.builtin.unarchive:
-        src: https://github.com/prometheus/prometheus/releases/download/v2.48.0-rc.1/prometheus-2.48.0-rc.1.linux-amd64.tar.gz
+        src: /home/alifanov/source/prometheus-2.47.2.linux-amd64.tar.gz
         dest: /tmp/prometheus
         remote_src: yes
 
@@ -44,31 +44,31 @@
 
     - name: "Копируем файлы архива в /usr/local/bin/"
       copy:
-        src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/prometheus
+        src: /tmp/prometheus/prometheus-2.47.2.linux-amd64/prometheus
         dest: /usr/local/bin/
         remote_src: yes
 
     - name: "Копируем promtool в /usr/local/bin/"
       copy:
-        src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/promtool
+        src: /tmp/prometheus/prometheus-2.47.2.linux-amd64/promtool
         dest: /usr/local/bin/
         remote_src: yes
 
     - name: "Копируем console_libraries в /etc/prometheus"
       copy:
-        src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/console_libraries
+        src: /tmp/prometheus/prometheus-2.47.2.linux-amd64/console_libraries
         dest: /etc/prometheus
         remote_src: yes
 
     - name: "Копируем console file в /etc/prometheus"
       copy:
-        src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/consoles
+        src: /tmp/prometheus/prometheus-2.47.2.linux-amd64/consoles
         dest: /etc/prometheus
         remote_src: yes
 
     - name: "Копируем prometheus.yml в /etc/prometheus"
       copy:
-        src: /tmp/prometheus/prometheus-2.48.0-rc.1.linux-amd64/prometheus.yml
+        src: /tmp/prometheus/prometheus-2.47.2.linux-amd64/prometheus.yml
         dest: /etc/prometheus
         remote_src: yes
 
