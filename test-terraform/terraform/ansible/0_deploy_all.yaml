@@ -22,3 +22,6 @@
 
 - name: "Устанавливаем Grafana"
   import_playbook: 8_grafana_install.yaml
+
+- name: "Устанавливаем node exporter"
+  import_playbook: 9_node_exporter_install.yaml
