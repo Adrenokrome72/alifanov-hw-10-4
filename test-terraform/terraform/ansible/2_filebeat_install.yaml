@@ -19,7 +19,7 @@
 
   - name: "Копируем конфигурационнй файл:"
     copy:
-      src: 
+      src: filebeat.yml
       dest: /etc/filebeat/filebeat.yml
 
   - name: "Проверяем работоспособность сервиса:"
