@@ -5,11 +5,11 @@
 - name: "Устанавливаем Kibana"
   import_playbook: 2_kibana_install.yaml
 
-- name: "Устанавливаем filebeat"
-  import_playbook: 3_filebeat_install.yaml
-
 - name: "Устанавливаем elastic"
-  import_playbook: 4_elastic_install.yaml
+  import_playbook: 3_elastic_install.yaml
+  
+- name: "Устанавливаем filebeat"
+  import_playbook: 4_filebeat_install.yaml
 
 - name: "Устанавливаем nginxlog"
   import_playbook: 5_nginxlog_install.yaml
