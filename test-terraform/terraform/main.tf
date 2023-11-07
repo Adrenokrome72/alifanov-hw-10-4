@@ -111,7 +111,7 @@
    }
  }
  
- output "internal_ip_address_vm_1" {
+ output "internal_ip_address_web1-nginx1" {
    value = yandex_compute_instance.vm1.network_interface.0.ip_address
  }
 
@@ -146,7 +146,7 @@
    }
  }
  
- output "internal_ip_address_vm_2" {
+ output "internal_ip_address_web2-nginx2" {
    value = yandex_compute_instance.vm2.network_interface.0.ip_address
  }
 
@@ -181,7 +181,7 @@
    }
  }
  
- output "internal_ip_address_vm_3" {
+ output "internal_ip_address_prometheus" {
    value = yandex_compute_instance.vm3.network_interface.0.ip_address
  }
 
@@ -216,7 +216,7 @@
     }
  }
  
- output "internal_ip_address_vm_4" {
+ output "internal_ip_address_elasticsearch" {
    value = yandex_compute_instance.vm4.network_interface.0.ip_address
  }
 
@@ -252,11 +252,11 @@
    }
  }
  
- output "internal_ip_address_vm_5" {
+ output "internal_ip_address_grafana" {
    value = yandex_compute_instance.vm5.network_interface.0.ip_address
  }
  
- output "external_ip_address_vm_5" {
+ output "external_ip_address_grafana" {
    value = yandex_compute_instance.vm5.network_interface.0.nat_ip_address
  }
  
@@ -292,11 +292,11 @@
    }
  }
  
- output "internal_ip_address_vm_6" {
+ output "internal_ip_address_kibana" {
    value = yandex_compute_instance.vm6.network_interface.0.ip_address
  }
  
- output "external_ip_address_vm_6" {
+ output "external_ip_address_kibana" {
    value = yandex_compute_instance.vm6.network_interface.0.nat_ip_address
  }
  
@@ -332,11 +332,11 @@
    }
  }
  
- output "internal_ip_address_vm_7" {
+ output "internal_ip_address_bastion" {
    value = yandex_compute_instance.vm7.network_interface.0.ip_address
  }
  
- output "external_ip_address_vm_7" {
+ output "external_ip_address_bastion" {
    value = yandex_compute_instance.vm7.network_interface.0.nat_ip_address
  }
 
