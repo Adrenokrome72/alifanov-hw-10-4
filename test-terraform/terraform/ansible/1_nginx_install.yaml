@@ -10,6 +10,7 @@
     apt:
       name: nginx
       state: latest
+      
   - name: "Создаем директорию www"
     file:
       path: /var/www/{{ domain }}
