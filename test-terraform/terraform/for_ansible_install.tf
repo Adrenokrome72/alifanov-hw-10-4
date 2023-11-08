@@ -23,6 +23,9 @@ resource "local_file" "ansible-inventory" {
     [kibana]
     ${yandex_compute_instance.vm6.network_interface.0.ip_address} public_ip=${yandex_compute_instance.vm6.network_interface.0.nat_ip_address}
 
+    [web:vars]
+    domain="alifanov"
+
     [all:vars]
     ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -p 22 -W %h:%p -q alifanov@${yandex_compute_instance.vm7.network_interface.0.nat_ip_address}"'
     EOT
