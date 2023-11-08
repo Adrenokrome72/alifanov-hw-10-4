@@ -4,11 +4,12 @@
   - name: "apt update"
     apt:
       update_cache: yes
+      cache_valid_time: 3600
   
   - name: "Устанавливаем nginx:"
     apt:
       name: nginx
-
+      state: latest
   - name: "Создаем директорию www"
     file:
       path: /var/www/{{ domain }}
