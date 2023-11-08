@@ -86,7 +86,6 @@
    name                      = "web1"
    hostname                  = "web1"
    zone                      = "ru-central1-a"
-   allow_stopping_for_update = true
    
    resources {
      core_fraction = 20
@@ -121,7 +120,6 @@
    name                      = "web2"
    hostname                  = "web2"
    zone                      = "ru-central1-b"
-   allow_stopping_for_update = true
  
    resources {
      core_fraction = 20
@@ -156,7 +154,6 @@
    name                      = "prometheus"
    hostname                  = "prometheus"
    zone                      = "ru-central1-a"
-   allow_stopping_for_update = true
   
   resources {
     core_fraction = 20
@@ -191,7 +188,6 @@
    name                      = "elasticsearch"
    hostname                  = "elasticsearch"
    zone                      = "ru-central1-a"
-   allow_stopping_for_update = true
  
    resources {
      core_fraction = 20
@@ -226,7 +222,6 @@
    name                      = "grafana"
    hostname                  = "grafana"
    zone                      = "ru-central1-a"
-   allow_stopping_for_update = true
    
   resources {
     core_fraction = 20
@@ -266,7 +261,6 @@
    name                      = "kibana"
    hostname                  = "kibana"
    zone                      = "ru-central1-a"
-   allow_stopping_for_update = true
    
   resources {
     core_fraction = 20
@@ -306,7 +300,6 @@
    name                      = "bastion"
    hostname                  = "bastion"
    zone                      = "ru-central1-a"
-   allow_stopping_for_update = true
    
   resources {
     core_fraction = 20
