@@ -1,27 +1,27 @@
 ---
-- name: "Установка Nginx на ноды web1 и web2"
-  import_playbook: 1_nginx_install.yaml
+ # - name: "Установка Nginx на ноды web1 и web2"
+  #  import_playbook: 1_nginx_install.yaml
 
-- name: "Устанавливаем Kibana"
-  import_playbook: 2_kibana_install.yaml
+  - name: "Устанавливаем Kibana"
+    import_playbook: 2_kibana_install.yaml
 
-- name: "Устанавливаем elastic"
-  import_playbook: 3_elastic_install.yaml
-  
-- name: "Устанавливаем filebeat"
-  import_playbook: 4_filebeat_install.yaml
+  - name: "Устанавливаем nginxlog"
+    import_playbook: 3_nginxlog_install.yaml
 
-- name: "Устанавливаем nginxlog"
-  import_playbook: 5_nginxlog_install.yaml
+  - name: "Устанавливаем filebeat"
+    import_playbook: 4_filebeat_install.yaml
 
-- name: "Устанавливаем Prometheus"
-  import_playbook: 6_prometheus_install.yaml
+  - name: "Устанавливаем elastic"
+    import_playbook: 5_elastic_install.yaml
 
-- name: "Настраиваем Prometheus"
-  import_playbook: 7_prometheus_settings.yaml
+  - name: "Устанавливаем Prometheus"
+    import_playbook: 6_prometheus_install.yaml
 
-- name: "Устанавливаем Grafana"
-  import_playbook: 8_grafana_install.yaml
+  - name: "Настраиваем Prometheus"
+    import_playbook: 7_prometheus_settings.yaml
 
-- name: "Устанавливаем node exporter"
-  import_playbook: 9_node_exporter_install.yaml
+  - name: "Устанавливаем Grafana"
+    import_playbook: 8_grafana_install.yaml
+
+  - name: "Устанавливаем node exporter"
+    import_playbook: 9_node_exporter.yaml

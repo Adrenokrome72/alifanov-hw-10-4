@@ -3,7 +3,7 @@
   gather_facts: true
   tasks:
 
- - name: "Создаем директорию для kibana"
+  - name: "Создаем директорию для kibana"
     file:
       path: "/tmp/kibana"
       state: directory
@@ -15,7 +15,7 @@
 
   - name: "Устанавливаем kibana"
     apt:
-      deb: "/tmp/elasticsearch/kibana-8.9.0-amd64.deb"
+      deb: "/tmp/kibana/kibana-8.9.0-amd64.deb"
 
   - name: "Копируем конфигурационный файл:"
     copy:

@@ -23,7 +23,7 @@
     - name: "Скачиваем архив:"
       ansible.builtin.unarchive:
         src: /home/alifanov/source/prometheus-2.47.2.linux-amd64.tar.gz
-        dest: /tmp/prometheus
+        dest: /tmp/prometheus/
         remote_src: yes
 
     - name: "Создаем директорию /etc/prometheus"

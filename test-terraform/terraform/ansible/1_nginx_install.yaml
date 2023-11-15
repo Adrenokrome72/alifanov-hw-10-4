@@ -1,16 +1,32 @@
-- hosts: web
-  become: yes
+- name: "Установка Nginx"
+  hosts: web
+
   tasks:
-  - name: "apt update"
-    apt:
-      update_cache: yes
-      cache_valid_time: 3600
-  
-  - name: "Устанавливаем nginx:"
-    apt:
-      name: nginx
-      state: latest
+  - name: "Скачиваем архив:"
+    copy:
+      src: "/home/alifanov/source/nginx-1.9.5"
+      dest: /tmp/nginx-1.9.5.tar.gz
       
+  - name: "Распаковываем NGINX"
+    unarchive:
+      copy: no
+      src: /tmp/nginx-1.9.5.tar.gz
+      dest: /tmp/
+
+  - name: "Создаем необходимую директорию Nginx"
+    become: yes
+    file:
+      path: /etc/nginx
+      state: directory
+      owner: root
+      mode: 0755
+      
+  - name: "Устанавливаем Nginx"
+    become: yes
+    shell: ./configure --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf && make && make install
+    args:
+      chdir: /tmp/nginx-1.9.5
+
   - name: "Создаем директорию www"
     file:
       path: /var/www/{{ domain }}
@@ -41,8 +57,7 @@
   - name: "Копируем нашу заглушку для сайта"
     template:
       src: ./nginx/index.html
-      dest: /var/www/html/index.nginx-debian.html
-        
+      dest: /var/www/html/index.nginx-debian.html 
   handlers:
     - name: restart nginx
       service:
