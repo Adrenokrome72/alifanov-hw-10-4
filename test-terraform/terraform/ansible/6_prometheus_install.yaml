@@ -22,7 +22,7 @@
 
     - name: "Скачиваем архив:"
       ansible.builtin.unarchive:
-        src: /home/alifanov/source/prometheus-2.47.2.linux-amd64.tar.gz
+        src: https://github.com/prometheus/prometheus/releases/download/v2.47.2/prometheus-2.47.2.linux-amd64.tar.gz
         dest: /tmp/prometheus/
         remote_src: yes
 
