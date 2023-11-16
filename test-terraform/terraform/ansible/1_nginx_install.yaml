@@ -1,31 +1,11 @@
-- name: "Установка Nginx"
-  hosts: web
-
+- hosts: web
+  become: yes
   tasks:
-  - name: "Скачиваем архив:"
-    copy:
-      src: "/home/alifanov/source/nginx-1.9.5"
-      dest: /tmp/nginx-1.9.5.tar.gz
-      
-  - name: "Распаковываем NGINX"
-    unarchive:
-      copy: no
-      src: /tmp/nginx-1.9.5.tar.gz
-      dest: /tmp/
-
-  - name: "Создаем необходимую директорию Nginx"
-    become: yes
-    file:
-      path: /etc/nginx
-      state: directory
-      owner: root
-      mode: 0755
-      
-  - name: "Устанавливаем Nginx"
-    become: yes
-    shell: ./configure --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf && make && make install
-    args:
-      chdir: /tmp/nginx-1.9.5
+  - name: "Устанавливаем nginx"
+    apt:
+      name: nginx
+      state: latest
+      update_cache: yes
 
   - name: "Создаем директорию www"
     file:
