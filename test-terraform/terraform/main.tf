@@ -9,6 +9,7 @@
    zone           = "ru-central1-a"
    network_id     = yandex_vpc_network.vpcnet.id
    v4_cidr_blocks = ["192.168.1.0/24"]
+   route_table_id = yandex_vpc_route_table.route_table.id
  }
  
  resource "yandex_vpc_subnet" "subnet2" {
@@ -16,8 +17,25 @@
    zone           = "ru-central1-b"
    network_id     = yandex_vpc_network.vpcnet.id
    v4_cidr_blocks = ["192.168.2.0/24"]
+   route_table_id = yandex_vpc_route_table.route_table.id
  }
- 
+
+#nat-gateway
+
+resource "yandex_vpc_gateway" "nat_gateway" {
+  name = "my-gateway"
+  shared_egress_gateway {}
+}
+
+resource "yandex_vpc_route_table" "route_table" {
+  network_id = yandex_vpc_network.vpcnet.id
+
+  static_route {
+    destination_prefix = "0.0.0.0/0"
+    gateway_id         = yandex_vpc_gateway.nat_gateway.id
+  }
+}
+
 #security group
 
  resource "yandex_vpc_security_group" "security" {
@@ -102,7 +120,6 @@
    network_interface {
      subnet_id  = yandex_vpc_subnet.subnet1.id
      ip_address = "192.168.1.10"
-	 nat        = false
    }
  
    metadata = {
@@ -136,7 +153,6 @@
    network_interface {
      subnet_id  = yandex_vpc_subnet.subnet2.id
 	 ip_address = "192.168.2.10"
-     nat        = false
    }
  
    metadata = {
@@ -170,7 +186,6 @@
    network_interface {
      subnet_id  = yandex_vpc_subnet.subnet1.id
      ip_address = "192.168.1.11"
-     nat        = false
    }
    
    metadata = {
@@ -204,7 +219,6 @@
     network_interface {
      subnet_id  = yandex_vpc_subnet.subnet1.id
 	 ip_address = "192.168.1.12"
-     nat        = false
     }
     
     metadata = {
