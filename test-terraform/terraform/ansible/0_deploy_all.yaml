@@ -1,6 +1,6 @@
 ---
- # - name: "Установка Nginx на ноды web1 и web2"
-  #  import_playbook: 1_nginx_install.yaml
+  - name: "Установка Nginx на ноды web1 и web2"
+    import_playbook: 1_nginx_install.yaml
 
   - name: "Устанавливаем Kibana"
     import_playbook: 2_kibana_install.yaml
