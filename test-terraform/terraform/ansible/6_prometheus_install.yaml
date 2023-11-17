@@ -9,10 +9,10 @@
       - targets:
         - "{{ groups['web'][0] }}:9100" #web1
         - "{{ groups['web'][1] }}:9100" #web2
-        - "{{ groups['prometheus'] }}:9100" #prometheus
-        - "{{ groups['elastic'] }}:9100" #elastic
-        - "{{ groups['grafana'] }}:9100" #grafana
-        - "{{ groups['kibana'] }}:9100" #kibana
+        - "{{ groups['prometheus'][0] }}:9100" #prometheus
+        - "{{ groups['elastic'][0] }}:9100" #elastic
+        - "{{ groups['grafana'][0] }}:9100" #grafana
+        - "{{ groups['kibana'][0] }}:9100" #kibana
 
 
       nginx:
