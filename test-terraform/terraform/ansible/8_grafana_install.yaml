@@ -2,7 +2,7 @@
   become: yes
   gather_facts: true
  roles:
-  - node_exporter
+  - node-exporter
   - cloudalchemy.grafana
   vars:
     grafana_version: 10.1.1
