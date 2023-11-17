@@ -13,7 +13,7 @@
     state: present
     
 
-- name: Get elasticsearch 8.6.2 
+- name: Get elasticsearch 
   ansible.builtin.get_url:  
     url: https://mirror.yandex.ru/mirrors/elastic/8/pool/main/e/elasticsearch/elasticsearch-8.10.3-amd64.deb
     dest: /home/user/
