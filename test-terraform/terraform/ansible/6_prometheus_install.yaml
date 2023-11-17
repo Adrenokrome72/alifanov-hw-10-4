@@ -1,7 +1,7 @@
 ---
 - hosts: prometheus
   roles:
-  - node_exporter
+  - node-exporter
   - prometheus
   vars:
     prometheus_targets:
