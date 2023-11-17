@@ -2,4 +2,4 @@
   become: yes
   roles:
   - elasticsearch
-  - node_exporter
+  - node-exporter
