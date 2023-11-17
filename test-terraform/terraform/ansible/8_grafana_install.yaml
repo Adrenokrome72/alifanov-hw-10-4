@@ -27,4 +27,3 @@
         revision_id: 1
         datasource: prometheus
 
-"http://{{ groups['prometheus'][0] }}:9090"
