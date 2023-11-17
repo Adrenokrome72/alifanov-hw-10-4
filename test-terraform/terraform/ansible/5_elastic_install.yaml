@@ -1,28 +1,5 @@
 - hosts: elastic
   become: yes
-  gather_facts: true
-  tasks:
-  
-  - name: "Создаем директорию для  elasticsearch"
-    file:
-      path: "/tmp/elasticsearch"
-      state: directory
-
-  - name: "Загружаем elasticsearch"
-    copy:
-      src: "/home/alifanov/source/elasticsearch-8.9.0-amd64.deb"
-      dest: /tmp/elasticsearch
-
-  - name: "Устанавливаем elasticsearch"
-    apt:
-      deb: "/tmp/elasticsearch/elasticsearch-8.9.0-amd64.deb"
-  
-  - name: "Копируем конфигурационный файл:"
-    copy:
-      src: elasticsearch.yml
-      dest: /etc/elasticsearch/elasticsearch.yml
-
-  - name: "Проверяем рабосопособность сервиса:"
-    systemd:
-      state: started
-      name: elasticsearch
+  roles:
+  - elasticsearch
+  - node_exporter
