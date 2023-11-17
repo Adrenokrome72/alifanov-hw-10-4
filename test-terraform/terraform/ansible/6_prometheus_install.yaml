@@ -1,6 +1,5 @@
 ---
 - hosts: prometheus
-  hosts: prometheus
   roles:
   - node_exporter
   - prometheus
