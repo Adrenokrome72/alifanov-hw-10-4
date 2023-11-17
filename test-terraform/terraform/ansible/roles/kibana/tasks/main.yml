@@ -12,14 +12,14 @@
       - gnupg2
     state: present
 
-- name: Get kibana.8.6.2
+- name: Get kibana
   ansible.builtin.get_url:  
-    url: https://mirror.yandex.ru/mirrors/elastic/8/pool/main/k/kibana/kibana-8.6.2-amd64.deb
+    url: https://mirror.yandex.ru/mirrors/elastic/8/pool/main/k/kibana/kibana-8.10.3-amd64.deb
     dest: /home/user/
 
 - name: Install kibana
   apt:
-    deb: /home/user/kibana-8.6.2-amd64.deb 
+    deb: /home/user/kibana-8.10.3-amd64.deb 
 
 - name: Systemctl daemon reload
   systemd:
