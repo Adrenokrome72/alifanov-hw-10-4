@@ -16,11 +16,11 @@
 - name: Get elasticsearch 
   ansible.builtin.get_url:  
     url: https://mirror.yandex.ru/mirrors/elastic/8/pool/main/e/elasticsearch/elasticsearch-8.10.3-amd64.deb
-    dest: /home/user/
+    dest: /home/alifanov/
 
 - name: Install elasticsearch
   apt:
-    deb: /home/user/elasticsearch-8.10.3-amd64.deb
+    deb: /home/alifanov/elasticsearch-8.10.3-amd64.deb
 
 - name: Copy config file for elasticsearch
   copy:

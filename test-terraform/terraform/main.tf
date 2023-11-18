@@ -449,7 +449,7 @@ resource "yandex_vpc_security_group" "elasticsearch-sg" {
    }
  
    network_interface {
-     subnet_id          = yandex_vpc_subnet.subnet1.id
+     subnet_id          = yandex_vpc_subnet.public-subnet.id
      ip_address         = "192.168.4.70"
      nat                = true
      security_group_ids = [yandex_vpc_security_group.bastion-sg.id]

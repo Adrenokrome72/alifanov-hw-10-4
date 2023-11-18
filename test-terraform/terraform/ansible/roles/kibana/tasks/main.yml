@@ -15,11 +15,11 @@
 - name: Get kibana
   ansible.builtin.get_url:  
     url: https://mirror.yandex.ru/mirrors/elastic/8/pool/main/k/kibana/kibana-8.10.3-amd64.deb
-    dest: /home/user/
+    dest: /home/alifanov/
 
 - name: Install kibana
   apt:
-    deb: /home/user/kibana-8.10.3-amd64.deb 
+    deb: /home/alifanov/kibana-8.10.3-amd64.deb 
 
 - name: Systemctl daemon reload
   systemd:
@@ -29,7 +29,7 @@
 
 - name: Copy config file for kibana
   template:
-    src: ./files/kibana.yml.j2
+    src: ./templates/kibana.yml.j2
     dest: /etc/kibana/kibana.yml
     owner: root
     group: root

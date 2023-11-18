@@ -1,11 +1,11 @@
 - hosts: grafana
   become: yes
   gather_facts: true
- roles:
+  roles:
   - node-exporter
   - cloudalchemy.grafana
   vars:
-    grafana_version: 10.1.1
+    grafana_version: latest
     
     grafana_security:
       admin_user: admin
@@ -18,12 +18,12 @@
         url: "http://{{ groups['prometheus'][0] }}:9090"
         basicAuth: false
     
-    grafana_dashboards:
-      - dashboard_id: 1860
-        revision_id: 31
-        datasource: prometheus
+   # grafana_dashboards:
+    #  - dashboard_id: 1860
+     #   revision_id: 33
+      #  datasource: prometheus
 
-      - dashboard_id: 15947
-        revision_id: 1
-        datasource: prometheus
+     # - dashboard_id: 15947
+      #  revision_id: 1
+       # datasource: prometheus
 

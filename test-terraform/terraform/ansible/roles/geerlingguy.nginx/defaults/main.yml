@@ -10,7 +10,7 @@ nginx_ppa_use: false
 nginx_ppa_version: stable
 
 # The name of the nginx package to install.
-nginx_package_name: "nginx=1.18.0*"
+nginx_package_name: "nginx"
 
 nginx_service_state: started
 nginx_service_enabled: true
