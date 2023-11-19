@@ -1,5 +1,5 @@
-resource "yandex_compute_snapshot_schedule" "default" {
-  name = "default"
+resource "yandex_compute_snapshot_schedule" "snaps" {
+  name = "snaps"
 
   schedule_policy {
     expression = "0 3 ? * *"

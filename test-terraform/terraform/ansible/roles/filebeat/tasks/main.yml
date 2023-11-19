@@ -14,12 +14,12 @@
 
 - name: Get filebeat
   ansible.builtin.get_url:  
-    url: https://mirror.yandex.ru/mirrors/elastic/8/pool/main/f/filebeat/filebeat-8.10.3-amd64.deb
+    url: https://mirror.yandex.ru/mirrors/elastic/8/pool/main/f/filebeat/filebeat-8.5.0-amd64.deb
     dest: /home/alifanov/
 
 - name: Install filebeat
   apt:
-    deb: /home/alifanov/filebeat-8.10.3-amd64.deb 
+    deb: /home/alifanov/filebeat-8.5.0-amd64.deb 
 
 - name: Copy config file for filebeat
   template:
@@ -43,8 +43,8 @@
 
 #- name: restarted  filebeat
  # systemd:
-   # name: filebeat.service
-  #  state: restarted
+  #  name: filebeat.service
+   # state: restarted
 
 #- name: Enable filebeat.service, and not touch the state
  # ansible.builtin.service:

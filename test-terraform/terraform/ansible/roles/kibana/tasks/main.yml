@@ -14,12 +14,12 @@
 
 - name: Get kibana
   ansible.builtin.get_url:  
-    url: https://mirror.yandex.ru/mirrors/elastic/8/pool/main/k/kibana/kibana-8.10.3-amd64.deb
+    url: https://mirror.yandex.ru/mirrors/elastic/8/pool/main/k/kibana/kibana-8.5.0-amd64.deb
     dest: /home/alifanov/
 
 - name: Install kibana
   apt:
-    deb: /home/alifanov/kibana-8.10.3-amd64.deb 
+    deb: /home/alifanov/kibana-8.5.0-amd64.deb 
 
 - name: Systemctl daemon reload
   systemd:
