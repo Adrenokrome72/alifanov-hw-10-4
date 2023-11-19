@@ -3,7 +3,7 @@
   gather_facts: true
   roles:
   - node-exporter
-  - cloudalchemy.grafana
+  - grafana
   vars:
     grafana_version: latest
     
@@ -15,7 +15,7 @@
       - name: prometheus
         type: prometheus
         access: proxy
-        url: "http://{{ groups['prometheus'][0] }}:9090"
+        url: "http://192.168.4.50:9090"
         basicAuth: false
     
     grafana_dashboards:
