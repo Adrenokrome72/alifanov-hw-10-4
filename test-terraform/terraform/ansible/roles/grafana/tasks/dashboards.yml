@@ -11,24 +11,18 @@
       check_mode: false
 
     # Use curl to solve issue #77
-    - name: download grafana dashboard from grafana.net to local directory
-      command: >
-        curl --fail --compressed
-        https://grafana.com/api/dashboards/{{ item.dashboard_id }}/revisions/{{ item.revision_id }}/download
-        -o {{ _tmp_dashboards.path }}/{{ item.dashboard_id }}.json
-      args:
-        creates: "{{ _tmp_dashboards.path }}/{{ item.dashboard_id }}.json"
-        warn: false
-      register: _download_dashboards
-      until: _download_dashboards is succeeded
+    - name: "Download grafana dashboard from grafana.net to local directory"
+      ansible.builtin.get_url:
+        url: "https://grafana.com/api/dashboards/{{ item.dashboard_id }}/revisions/{{ item.revision_id }}/download"
+        dest: "{{ __tmp_dashboards.path }}/{{ item.dashboard_id }}.json"
+        mode: "0644"
+      register: __download_dashboards
+      until: "__download_dashboards is succeeded"
       retries: 5
       delay: 2
-      with_items: "{{ grafana_dashboards }}"
-      when: grafana_dashboards | length > 0
       changed_when: false
-      check_mode: false
-      tags:
-        - skip_ansible_lint
+      loop: "{{ grafana_dashboards }}"
+
 
     # As noted in [1] an exported dashboard replaces the exporter's datasource
     # name with a representative name, something like 'DS_GRAPHITE'. The name
