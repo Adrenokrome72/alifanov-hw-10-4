@@ -1,0 +1,5 @@
+ansible elastic -m shell -a "systemctl reload-or-restart elasticsearch"
+ansible kibana -m shell -a "systemctl reload-or-restart kibana"
+ansible web -m shell -a "systemctl reload-or-restart nginx nginx-log-exporter filebeat node-exporter"
+ansible prometheus -m shell -a "systemctl reload-or-restart prometheus"
+ansible grafana -m shell -a "systemctl reload-or-restart grafana"
