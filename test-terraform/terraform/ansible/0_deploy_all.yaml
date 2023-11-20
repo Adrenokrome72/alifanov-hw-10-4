@@ -11,8 +11,8 @@
   - name: "Устанавливаем elastic"
     import_playbook: 3_elastic_install.yaml
 
-  - name: "Устанавливаем filebeat"
-    import_playbook: 6_filebeat_install.yaml
-
   - name: "Устанавливаем Kibana"
     import_playbook: 2_kibana_install.yaml
+
+  - name: "Устанавливаем filebeat"
+    import_playbook: 6_filebeat_install.yaml
