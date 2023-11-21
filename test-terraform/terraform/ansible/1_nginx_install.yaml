@@ -1,6 +1,5 @@
 - hosts: web
   become: yes
-  gather_facts: true
   roles:
   - geerlingguy.nginx
   - node-exporter
