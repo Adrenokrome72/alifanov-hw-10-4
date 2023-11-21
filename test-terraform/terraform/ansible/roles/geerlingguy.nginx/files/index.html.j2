@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Сайт на реконструкции</title>
+    <style>
+html {
+  background-image: url(https://i.pinimg.com/originals/36/63/9d/36639de949b2f9701d034aac6186bb20.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+        main {
+            max-width: 70%;
+            margin: 50px auto 0 auto;
+            padding: 25px;
+            text-align: center;
+            font-size: 20px;
+            text-shadow:
+            3px 3px 3px crimson,
+            2px 2px 1px crimson;
+            color: springgreen;
+            font-family: "Times", sans-serif; font-size: 28px; font-weight: 300; line-height: 34px; margin: 0 0 px;          
+        }
+        text1 {
+            max-width: 70%;
+            padding: 25px;
+            font-size: 25px;           
+        }
+        
+        .table_center_by_css {
+        width: 700px;
+        border: 1px solid #000;
+        margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <p>ДИПЛОМНАЯ РАБОТА<br> К КУРСУ СИСТЕМНЫЙ АДМИНИСТРАТОР</p>
+        <p>Работу выполнил студент группы fsys-17 - Алифанов Сергей<br>
+   </main>
+<main>На демонстрационном сайте вы можете видеть работу балансировщика.<br> Для проверки работоспособности обновите страницу, чтобы увидеть сведения о каждой ноде:<br></p></main>
+
+
+<div style="text-align: center;">
+ <table border="1">
+ <table class="table_center_by_css">
+  <colgroup>
+    <col span="2" style="background:content-box radial-gradient(crimson, skyblue);"><!
+  </colgroup>
+<caption><main>Сведения о нодах</main></caption> 
+  <thead>
+  <tr>
+    <th><text1>Характеристика</text1></th>
+    <th><text1>Значение</text1></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><text1>Hostname:</text1></td>
+    <td><text1>{{ ansible_facts.hostname }}</text1></td>
+  </tr>
+  <tr>
+    <td><text1>OS:</text1></td>
+    <td><text1>{{ ansible_facts.distribution }}</text1></td>
+  </tr>
+  <tr>
+    <td><text1>CPU:</text1></td>
+    <td><text1>{{ ansible_facts.processor }}</text1></td>
+  </tr>
+  <tr>
+    <td><text1>RAM:</text1></td>
+    <td><text1>{{ ansible_facts.memtotal_mb }}</text1></td>
+  </tr>
+  <tr>
+    <td><text1>HDD:</text1></td>
+    <td><text1>{{ ansible_facts.mounts.0.device }}</text1></td>
+  </tr>
+  <tr>
+    <td><text1>IP:</text1></td>
+    <td><text1>{{ ansible_facts.default_ipv4.address }}</text1></td>
+  </tr>
+ </tbody>
+</table>
+</div>
+</body>
+</html>
