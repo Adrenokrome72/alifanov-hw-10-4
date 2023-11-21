@@ -5,10 +5,58 @@
 
 ### Пошаговое выполнение
 
+1. Конфигурационный файл [main.tf](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/test-terraform/terraform/main.tf) содержит в себе следующие установки:
+  Настройки сети:
+- 1 сеть, 4 подсети, 1 NAT-шлюз, 6 security-group под каждый сервис, 1 target group, содержащая в себе backend group, http-router и balancer.
+  Настройки виртуальных машин:
+- 7 виртуальных машин: vm1 и vm2 для размещения web-серверов, prometheus vm, elasticsearch vm, grafana vm, kibana vm - сервисы, bastion vm - управление хостами.
+2. Запускаем развертывание инфраструктуры при помощи команды : `terraform apply - `
+3. По завершении получаем сообщение об успешном развертывании и адреса созданых машин:
+![Результат команды](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/1.jpg )
+4. Теперь всё готово для развертывания самих сервисов с помощью Ansible.
+5. Для улучшения автоматизации мною был добавлен отдельный [playbook](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/test-terraform/terraform/ansible/0_deploy_all.yaml) для развертывания сразу всех сервисов в определенном порядке, необходмым для правильного создания зависимостей между сервисами.
+6. Запускаем его и дожидаемся окончания установки всех сервисов. В случае успешной установки увидим следующее сообщение:
+![Завершение установки Ansible playbook](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/2.jpg )
+7. После завершения используем также заранее подготовленный [Bash-скрипт](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/test-terraform/terraform/ansible/check_status.sh) для проверки статуса сервисов, а также информации о запущенных виртуальных машинах, сетей и снэпшотов.
+8. В результате получим следующее:
+![Статус сервиса kibana](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/3.jpg )
+![Статус сервиса nginx](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/4.jpg )
+![Статус сервиса elasticsearch](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/5.jpg )
+![Статус сервиса prometheus](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/6.jpg )
+![Статус сервиса grafana](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/7.jpg )
+![yc compute instance list](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/8.jpg )
+![yc vpc network list](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/9.jpg )
+![yc vpc subnet list](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/10.jpg )
+![yc vpc security-group list](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/11.jpg )
+![yc compute snapshot-schedule list](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/12.jpg )
+![yc compute snapshot list](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/13.jpg )
+![curl -v](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/14.jpg )
+9. Видим, что всё работает исправно, следовательно можем проверить web-страницы доступных сервисов, а именно:
+- Работающие дашборды [Grafana]():
+![Grafana Dashboard 1](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/15.jpg )
+![Grafana Dashboard 2](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/16.jpg )
+- Приходящие логи через filebeat в [elasticsearch]():
+![Elasticsearch](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/17.jpg )
+- Работающий balancer и [web-странцицы](): 
+![Elasticsearch](https://github.com/Adrenokrome72/alifanov-sys-diplom/blob/main/img/18.jpg )
 
-2. Файлы терраформа и плейбуки размещены в настоящем репозитории.
 
-3. Развернем инфраструктуру с помощью terraform. Запускаем построение при помощи команд:
+
+
+
+
+
+
+
+
+
+
+
+
+
+3. Файлы терраформа и плейбуки размещены в настоящем репозитории.
+
+4. Развернем инфраструктуру с помощью terraform. Запускаем построение при помощи команд:
 
 - Инициализируем систему:
 
