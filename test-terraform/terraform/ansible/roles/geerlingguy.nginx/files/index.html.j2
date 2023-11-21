@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
-    <title>Сайт на реконструкции</title>
+    <title>Netology Diplom Work</title>
     <style>
 html {
   background-image: url(https://i.pinimg.com/originals/36/63/9d/36639de949b2f9701d034aac6186bb20.jpg);
@@ -17,7 +17,7 @@ html {
 }
         main {
             max-width: 70%;
-            margin: 50px auto 0 auto;
+            margin: 300px auto 0 auto;
             padding: 25px;
             text-align: center;
             font-size: 20px;
@@ -43,51 +43,7 @@ html {
 <body>
     <main>
         <p>ДИПЛОМНАЯ РАБОТА<br> К КУРСУ СИСТЕМНЫЙ АДМИНИСТРАТОР</p>
-        <p>Работу выполнил студент группы fsys-17 - Алифанов Сергей<br>
+        <p>Работу выполнил студент группы fsys-17 - Алифанов Сергей</p>
    </main>
-<main>На демонстрационном сайте вы можете видеть работу балансировщика.<br> Для проверки работоспособности обновите страницу, чтобы увидеть сведения о каждой ноде:<br></p></main>
-
-
-<div style="text-align: center;">
- <table border="1">
- <table class="table_center_by_css">
-  <colgroup>
-    <col span="2" style="background:content-box radial-gradient(crimson, skyblue);"><!
-  </colgroup>
-<caption><main>Сведения о нодах</main></caption> 
-  <thead>
-  <tr>
-    <th><text1>Характеристика</text1></th>
-    <th><text1>Значение</text1></th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td><text1>Hostname:</text1></td>
-    <td><text1>{{ ansible_facts.hostname }}</text1></td>
-  </tr>
-  <tr>
-    <td><text1>OS:</text1></td>
-    <td><text1>{{ ansible_facts.distribution }}</text1></td>
-  </tr>
-  <tr>
-    <td><text1>CPU:</text1></td>
-    <td><text1>{{ ansible_facts.processor }}</text1></td>
-  </tr>
-  <tr>
-    <td><text1>RAM:</text1></td>
-    <td><text1>{{ ansible_facts.memtotal_mb }}</text1></td>
-  </tr>
-  <tr>
-    <td><text1>HDD:</text1></td>
-    <td><text1>{{ ansible_facts.mounts.0.device }}</text1></td>
-  </tr>
-  <tr>
-    <td><text1>IP:</text1></td>
-    <td><text1>{{ ansible_facts.default_ipv4.address }}</text1></td>
-  </tr>
- </tbody>
-</table>
-</div>
 </body>
 </html>

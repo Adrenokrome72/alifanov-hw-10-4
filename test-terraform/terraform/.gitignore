@@ -3,3 +3,5 @@ terraform.tfstate.*
 terraform.lock.hcl
 yc_provider.tf
 .terraform*
+terraform.tfvars
+meta.yaml
